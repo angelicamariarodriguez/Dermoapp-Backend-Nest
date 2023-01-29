@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { PatientModule } from './patient/patient.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PatientEntity } from './patient/patient.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [PatientModule, 
@@ -18,7 +19,7 @@ import { PatientEntity } from './patient/patient.entity';
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
-    }),
+    }), UserModule,
    
   ],
   controllers: [AppController],
