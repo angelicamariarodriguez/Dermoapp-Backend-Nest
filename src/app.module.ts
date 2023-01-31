@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PatientModule } from './patient/patient.module';
+import { MedicModule } from './medic/medic.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MedicEntity } from './medic/medic.entity';
+import { PatientModule } from './patient/patient.module';
 import { PatientEntity } from './patient/patient.entity';
 
 @Module({
-  imports: [PatientModule, 
+  imports: [MedicModule, PatientModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -14,14 +16,13 @@ import { PatientEntity } from './patient/patient.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'dermoapp',
-      entities: [PatientEntity],
+      entities: [MedicEntity, PatientEntity],
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
     }),
-   
   ],
   controllers: [AppController],
   providers: [AppService],
-})
-export class AppModule {}
+ })
+ export class AppModule {}
