@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicEntity } from './medic/medic.entity';
 import { PatientModule } from './patient/patient.module';
 import { PatientEntity } from './patient/patient.entity';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [MedicModule, PatientModule, 
@@ -21,12 +21,7 @@ import { UserModule } from './user/user.module';
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
-<<<<<<< HEAD
-    }), UserModule,
-   
-=======
-    }),
->>>>>>> develop
+    }), UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
