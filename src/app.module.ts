@@ -20,7 +20,7 @@ import { UserEntity } from './user/user.entity';
       password: 'postgres',
       database: 'dermoapp',
       entities: [MedicEntity, PatientEntity, UserEntity],
-      dropSchema: true,
+      //dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
     }), UserModule, AuthModule,
