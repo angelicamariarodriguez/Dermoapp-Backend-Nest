@@ -12,9 +12,9 @@ export class UserController {
 
     constructor(private readonly userService: UserService) {}
     
-    @Get(':username')
-    async findOne(@Param('username') username: string) {
-    return await this.userService.findOne(username);
+    @Get(':email')
+    async findOne(@Param('email') email: string) {
+    return await this.userService.findOne(email);
     }
 
     @Post()

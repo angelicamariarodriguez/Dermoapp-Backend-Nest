@@ -3,7 +3,7 @@ export class UserDto {
 
  @IsNotEmpty()
  @IsEmail()
- readonly username: string;
+ readonly email: string;
  
  @IsString()
  @IsNotEmpty()

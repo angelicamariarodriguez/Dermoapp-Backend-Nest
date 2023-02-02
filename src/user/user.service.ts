@@ -15,8 +15,8 @@ export class UserService {
         private readonly userRepository: Repository<UserEntity>
     ){}
 
-    async findOne(username: string): Promise<UserEntity> {
-        const user: UserEntity = await this.userRepository.findOne({where: {username} } );
+    async findOne(email: string): Promise<UserEntity> {
+        const user: UserEntity = await this.userRepository.findOne({where: {email} } );
         if (!user)
           throw new BusinessLogicException("The user with the given id was not found", BusinessError.NOT_FOUND);
    

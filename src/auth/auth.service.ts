@@ -15,6 +15,7 @@ export class AuthService {
         const user: UserEntity = await this.usersService.findOne(username);
         if (user && user.password === password) {
             const { password, ...result } = user;
+            console.log("Se valida usuario")
             return result;
         }
         return null;
