@@ -13,11 +13,7 @@ export class UserEntity {
  @Column()
  password: string;
 
- @Column({
-    type: 'enum',
-    enum: Role,
-    default: Role.Patient
-  })
- role: Role;
+ @Column("text", { array: true })
+ roles: string[];
 
 }
