@@ -1,14 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user';
+import { UserEntity } from './user.entity';
+import { Repository } from 'typeorm';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 @Injectable()
 export class UserService {
-   private users: User[] = [
-       new User(1, "admin", "admin", ["admin"]),
-       new User(2, "user", "admin", ["user"]),
-   ];
+   constructor(
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>
+    ){}
+ 
+   async findOne(email: string): Promise<UserEntity> {
+    const user: UserEntity = await this.userRepository.findOne({where: {email}} );
+    if (!user)
+      throw new BusinessLogicException("The user with the given email was not found", BusinessError.NOT_FOUND);
 
-   async findOne(username: string): Promise<User | undefined> {
-       return this.users.find(user => user.username === username);
+    return user;
    }
+
+   async create(user: UserEntity): Promise<UserEntity> {
+    const email = user.email;
+    const findUser: UserEntity = await this.userRepository.findOne({where: {email}});
+    if (findUser)
+        throw new BusinessLogicException("The user with the given email already exists", BusinessError.BAD_REQUEST);
+    return await this.userRepository.save(user);
+}
+
 }
