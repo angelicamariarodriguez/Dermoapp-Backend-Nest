@@ -1,20 +1,12 @@
-import {IsEmail, IsNotEmpty, IsString, IsStrongPassword, IsUrl} from 'class-validator';
-import { Unique } from 'typeorm';
+import {IsDateString, IsEmail, IsNotEmpty, IsString, IsUrl} from 'class-validator';
 export class UserDto {
-
 
  @IsNotEmpty()
  @IsEmail()
  readonly email: string;
  
-
+ @IsString()
  @IsNotEmpty()
- @IsStrongPassword()
  readonly password: string;
  
-
- @IsNotEmpty()
- readonly rol: string;
- 
-
 }

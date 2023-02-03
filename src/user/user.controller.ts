@@ -15,9 +15,9 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
     
     @UseGuards(JwtAuthGuard)
-    @Get(':userName')
-    async findOne(@Param('userName') userName: string) {
-    return await this.userService.findOne(userName);
+    @Get(':email')
+    async findOne(@Param('email') email: string) {
+    return await this.userService.findOne(email);
     }
 
     @Post('signup')
