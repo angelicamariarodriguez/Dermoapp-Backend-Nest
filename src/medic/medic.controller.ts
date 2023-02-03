@@ -23,7 +23,7 @@ export class MedicController {
     return await this.medicService.findOne(medicId);
     }
 
-    @UseGuards(JwtAuthGuard)
+    
     @Post()
     async create(@Body() medicDto: MedicDto) {
     const medic: MedicEntity = plainToInstance(MedicEntity, medicDto);
