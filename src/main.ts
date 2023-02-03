@@ -9,6 +9,7 @@ async function bootstrap() {
     prefix: 'api/v',
     defaultVersion: '1',
   });
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
  }
