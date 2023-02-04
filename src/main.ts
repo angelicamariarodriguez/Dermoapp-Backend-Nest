@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(parseInt(process.env.PORT) || 3000)
   app.enableVersioning({
     type: VersioningType.URI,
     prefix: 'api/v',
@@ -12,6 +11,6 @@ async function bootstrap() {
   });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  await app.listen(parseInt(process.env.PORT) || 3000)
  }
  bootstrap();
