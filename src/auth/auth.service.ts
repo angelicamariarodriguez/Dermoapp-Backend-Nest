@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import constants from '../shared/security/constants';
 import { UserService } from '../user/user.service';
 import { UserEntity } from 'src/user/user.entity';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 @Injectable()
 export class AuthService {

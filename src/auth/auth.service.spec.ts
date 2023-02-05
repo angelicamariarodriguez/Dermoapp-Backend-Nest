@@ -37,7 +37,7 @@ describe('AuthService', () => {
         const user: UserEntity = await repository.save({
         email: faker.internet.email(),
         password: faker.internet.password(),
-        roles: [faker.lorem.word()], 
+        roles: faker.lorem.word(), 
         })
         usersList.push(user);
     }
@@ -52,7 +52,7 @@ describe('AuthService', () => {
     const user: UserEntity = await authService.validateUser(storedUser.email, storedUser.password);
     expect(user).not.toBeNull();
     expect(user.email).toEqual(storedUser.email)
-    expect(user.roles).toEqual(storedUser.roles[0])
+    expect(user.roles).toEqual(storedUser.roles)
   });
 
   it('validateUser should throw an exception for an invalid user name', async () => {

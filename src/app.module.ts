@@ -14,13 +14,13 @@ import { UserEntity } from './user/user.entity';
   imports: [MedicModule, PatientModule, UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: '10.77.144.3',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: 'dermoapp23#',
       database: 'dermoapp',
       entities: [MedicEntity, PatientEntity, UserEntity],
-      dropSchema: true,
+      //dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
     }), UserModule, AuthModule,
