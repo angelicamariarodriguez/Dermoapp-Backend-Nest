@@ -30,7 +30,7 @@ describe('UserService', () => {
         const user: UserEntity = await repository.save({
         email: faker.internet.email(),
         password: faker.internet.password(),
-        roles: [faker.lorem.word()] })
+        roles: faker.lorem.word() })
         usersList.push(user);
     }
   }
@@ -44,7 +44,7 @@ describe('UserService', () => {
       id: "",
       email: faker.internet.email(),
       password: faker.internet.password(),
-      roles: ['Patient']
+      roles: 'Patient'
     }
     const newUser: UserEntity = await service.create(user);
     expect(newUser).not.toBeNull();
@@ -52,7 +52,7 @@ describe('UserService', () => {
     expect(storedUser).not.toBeNull();
     expect(storedUser.email).toEqual(newUser.email)
     expect(storedUser.password).toEqual(newUser.password)
-    expect(storedUser.roles).toEqual(newUser.roles[0])
+    expect(storedUser.roles).toEqual(newUser.roles)
   });
 
   it('create should throw an exception for an email already registered', async () => {
@@ -60,7 +60,7 @@ describe('UserService', () => {
       id: "",
       email: faker.internet.email(),
       password: faker.internet.password(),
-      roles: ['Medic']
+      roles: 'Medic'
     }
     const newUser: UserEntity = await service.create(user);
     await expect(() => service.create(user)).rejects.toHaveProperty("message", "The user with the given email already exists")
@@ -73,7 +73,7 @@ describe('UserService', () => {
     expect(user).not.toBeNull();
     expect(user.email).toEqual(storedUser.email)
     expect(user.password).toEqual(storedUser.password)
-    expect(user.roles).toEqual(storedUser.roles[0])
+    expect(user.roles).toEqual(storedUser.roles)
   });
 
   it('findOne should throw an exception for an invalid user', async () => {

@@ -11,13 +11,13 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class PatientController {
     constructor(private readonly patientService: PatientService) {}
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     return await this.patientService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Get(':patientId')
   async findOne(@Param('patientId') patientId: string) {
     return await this.patientService.findOne(patientId);
@@ -30,14 +30,14 @@ export class PatientController {
     return await this.patientService.create(patient);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Put(':patientId')
   async update(@Param('patientId') patientId: string, @Body() patientDto: PatientDto) {
     const patient: PatientEntity = plainToInstance(PatientEntity, patientDto);
     return await this.patientService.update(patientId, patient);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Delete(':patientId')
   @HttpCode(204)
   async delete(@Param('patientId') patientId: string) {

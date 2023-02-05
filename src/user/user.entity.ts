@@ -13,7 +13,8 @@ export class UserEntity {
  @Column()
  password: string;
 
- @Column("text", { array: true })
- roles: string[];
+ //@Column("text", { array: true })
+ @Column()
+ roles: string;
 
 }

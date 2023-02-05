@@ -7,14 +7,14 @@ export class PatientDto {
  readonly name: string;
  
  @IsNotEmpty()
- @IsEmail()
+ //@IsEmail()
  readonly email: string;
  
  @IsString()
  @IsNotEmpty()
  readonly password: string;
  
- @IsDateString()
+ //@IsDateString()
  @IsNotEmpty()
  readonly birthDate: string;
  
@@ -26,7 +26,7 @@ export class PatientDto {
  @IsNotEmpty()
  readonly skinType: string;
 
- @IsUrl()
+ //@IsUrl()
  @IsNotEmpty()
  readonly profilePicture: string;
 }
