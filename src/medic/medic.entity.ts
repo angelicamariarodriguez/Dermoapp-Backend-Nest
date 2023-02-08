@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ConsultationEntity } from '../consultation/consultation.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class MedicEntity {
@@ -29,6 +30,6 @@ export class MedicEntity {
     @Column()
     specialty: string;
 
-    //@OneToMany(() => ConsultationEntity, consultation => consultation.medic)
-    //consultations: ConsultationEntity[];
+    @OneToMany(() => ConsultationEntity, consultation => consultation.medic)
+    consultations: ConsultationEntity[];
 }

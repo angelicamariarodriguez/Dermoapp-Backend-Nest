@@ -9,9 +9,13 @@ import { PatientEntity } from './patient/patient.entity';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserEntity } from './user/user.entity';
+import { ConsultationModule } from './consultation/consultation.module';
+import { SymptomModule } from './symptom/symptom.module';
+import { ConsultationEntity } from './consultation/consultation.entity';
+import { SymptomEntity } from './symptom/symptom.entity';
 
 @Module({
-  imports: [MedicModule, PatientModule, UserModule,
+  imports: [MedicModule, PatientModule, UserModule, ConsultationModule, SymptomModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: '10.77.144.3',
@@ -19,11 +23,11 @@ import { UserEntity } from './user/user.entity';
       username: 'postgres',
       password: 'dermoapp23#',
       database: 'dermoapp',
-      entities: [MedicEntity, PatientEntity, UserEntity],
+      entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity, SymptomEntity],
       //dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule,
+    }), UserModule, AuthModule, ConsultationModule, SymptomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
