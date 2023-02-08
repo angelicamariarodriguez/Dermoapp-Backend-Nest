@@ -9,4 +9,8 @@ export class SymptomService {
         @InjectRepository(SymptomEntity)
         private readonly symptomRepository: Repository<SymptomEntity>
     ){}
+
+    async create(symptom: SymptomEntity): Promise<SymptomEntity> {
+        return await this.symptomRepository.save(symptom);
+    }
 }

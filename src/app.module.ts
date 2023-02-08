@@ -15,7 +15,7 @@ import { ConsultationEntity } from './consultation/consultation.entity';
 import { SymptomEntity } from './symptom/symptom.entity';
 
 @Module({
-  imports: [MedicModule, PatientModule, UserModule, ConsultationModule, SymptomModule,
+  imports: [MedicModule, PatientModule, UserModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: '10.77.144.3',

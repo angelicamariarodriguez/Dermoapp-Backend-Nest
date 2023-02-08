@@ -7,7 +7,7 @@ export class SymptomEntity {
     id: string;
    
     @Column()
-    name: string;
+    typeOfInjury: string;
     
     @Column()
     specialty: string;

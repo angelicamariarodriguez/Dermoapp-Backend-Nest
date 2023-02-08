@@ -6,7 +6,8 @@ import { ConsultationEntity } from './consultation.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { faker } from '@faker-js/faker';
 import { MedicEntity } from '../medic/medic.entity';
-import { PatientEntity } from 'src/patient/patient.entity';
+import { PatientEntity } from '../patient/patient.entity';
+import { SymptomEntity } from '../symptom/symptom.entity';
 
 describe('ConsultationService', () => {
   let service: ConsultationService;
@@ -16,6 +17,8 @@ describe('ConsultationService', () => {
   let medicsList: MedicEntity[];
   let patientRepository: Repository<PatientEntity>;
   let patientsList: PatientEntity[];
+  let symptomRepository: Repository<SymptomEntity>;
+  let symptomsList: SymptomEntity[];
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,33 +28,60 @@ describe('ConsultationService', () => {
 
     service = module.get<ConsultationService>(ConsultationService);
     repository = module.get<Repository<ConsultationEntity>>(getRepositoryToken(ConsultationEntity));
+    medicRepository = module.get<Repository<MedicEntity>>(getRepositoryToken(MedicEntity));
+    patientRepository = module.get<Repository<PatientEntity>>(getRepositoryToken(PatientEntity));
+    symptomRepository = module.get<Repository<SymptomEntity>>(getRepositoryToken(SymptomEntity));
     await seedDatabase();
   });
-  
+
   const seedDatabase = async () => {
     repository.clear();
+    medicRepository.clear();
+    patientRepository.clear();
+    symptomRepository.clear();
     consultationsList = [];
-    for(let i = 0; i < 5; i++){
-        const consultation: ConsultationEntity = await repository.save({
+    medicsList = [];
+    patientsList = [];
+    symptomsList = [];
+    for (let i = 0; i < 5; i++) {
+      const consultation: ConsultationEntity = await repository.save({
         shape: faker.lorem.word(),
         numberOfInjuries: faker.lorem.word(),
         distribution: faker.lorem.word(),
         comment: faker.lorem.paragraph(),
-        image: faker.image.imageUrl()})          
+        image: faker.image.imageUrl()
+      });
+      consultationsList.push(consultation);
     }
-  }
-  
-  const medic: MedicEntity = await medicRepository.save({
-    name: faker.name.firstName(), 
-    lastName: faker.name.lastName(), 
-    country: faker.lorem.word(), 
-    profLicense: faker.lorem.sentence(),
-    email: faker.internet.email(),
-    password: faker.internet.password(), 
-    specialty: faker.lorem.word(), 
-    profilePicture: faker.image.imageUrl()
-  });
-  medicsList.push(medic);
+    const medic: MedicEntity = await medicRepository.save({
+      name: faker.name.firstName(), 
+      lastName: faker.name.lastName(), 
+      country: faker.lorem.word(), 
+      profLicense: faker.lorem.sentence(),
+      email: faker.internet.email(),
+      password: faker.internet.password(), 
+      specialty: faker.lorem.word(), 
+      profilePicture: faker.image.imageUrl()
+    });
+    medicsList.push(medic);
+
+    const patient: PatientEntity = await patientRepository.save({
+      name: faker.name.fullName(), 
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      birthDate: faker.date.birthdate(), 
+      country: faker.address.country(),
+      skinType: faker.color.human(),
+      profilePicture: faker.image.imageUrl()
+    });
+    patientsList.push(patient);
+
+    const symptom: SymptomEntity = await symptomRepository.save({
+      typeOfInjury: faker.lorem.word(), 
+      specialty: faker.lorem.word()
+    });
+    symptomsList.push(symptom);
+  };
 
 
   it('should be defined', () => {
@@ -80,6 +110,10 @@ describe('ConsultationService', () => {
   });
 
   it('create should return a new consultation', async () => {
+    const storedMedic: MedicEntity = medicsList[0];
+    const storedPatient: PatientEntity = patientsList[0];
+    const storedSymptom: SymptomEntity = symptomsList[0];
+  
     const consultation: ConsultationEntity = {
       id: "",
       shape: faker.lorem.word(),
@@ -87,20 +121,22 @@ describe('ConsultationService', () => {
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
       image: faker.image.imageUrl(),
-      medic: "",
-      artworks: []
+      medic: storedMedic,
+      patient: storedPatient,
+      symptom: storedSymptom
+
     }
 
-    const newMuseum: MuseumEntity = await service.create(museum);
-    expect(newMuseum).not.toBeNull();
+    const newConsultation: ConsultationEntity = await service.create(consultation);
+    expect(newConsultation).not.toBeNull();
 
-    const storedMuseum: MuseumEntity = await repository.findOne({where: {id: newMuseum.id}})
-    expect(storedMuseum).not.toBeNull();
-    expect(storedMuseum.name).toEqual(newMuseum.name)
-    expect(storedMuseum.description).toEqual(newMuseum.description)
-    expect(storedMuseum.address).toEqual(newMuseum.address)
-    expect(storedMuseum.city).toEqual(newMuseum.city)
-    expect(storedMuseum.image).toEqual(newMuseum.image)
+    const storedConsultation: ConsultationEntity = await repository.findOne({where: {id: newConsultation.id}})
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.shape).toEqual(newConsultation.shape)
+    expect(storedConsultation.numberOfInjuries).toEqual(newConsultation.numberOfInjuries)
+    expect(storedConsultation.distribution).toEqual(newConsultation.distribution)
+    expect(storedConsultation.comment).toEqual(newConsultation.comment)
+    expect(storedConsultation.image).toEqual(newConsultation.image)
   });
 
 });
