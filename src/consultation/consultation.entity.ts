@@ -12,7 +12,7 @@ export class ConsultationEntity {
  shape: string;
  
  @Column()
- numberOfInjuries: string;
+ numberOfInjuries: number;
  
  @Column()
  distribution: string;
