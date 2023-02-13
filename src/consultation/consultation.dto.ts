@@ -14,9 +14,9 @@ export class ConsultationDto {
  @IsNotEmpty()
  readonly comment: string;
  
- @IsNumber()
+ @IsString()
  @IsNotEmpty()
- readonly numberOfInjuries: number;
+ readonly numberOfInjuries: string;
  
  //@IsUrl()
  @IsNotEmpty()
