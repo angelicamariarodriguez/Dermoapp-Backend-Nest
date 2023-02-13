@@ -74,7 +74,8 @@ describe('PatientService', () => {
       birthDate: faker.date.birthdate(), 
       country: faker.address.country(),
       skinType: faker.color.human(),
-      profilePicture: faker.image.imageUrl()
+      profilePicture: faker.image.imageUrl(),
+      consultations: []
     }
 
     const newPatient: PatientEntity = await service.create(patient);

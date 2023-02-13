@@ -78,8 +78,8 @@ describe('MedicService', () => {
       email: faker.internet.email(),
       password: faker.internet.password(), 
       specialty: faker.lorem.word(), 
-      profilePicture: faker.image.imageUrl()
-      //consultations: [],
+      profilePicture: faker.image.imageUrl(),
+      consultations: [],
     }
  
     const newMedic: MedicEntity = await service.create(medic);
