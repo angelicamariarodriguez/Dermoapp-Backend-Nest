@@ -23,6 +23,12 @@ export class MedicController {
     return await this.medicService.findOne(medicId);
     }
 
+    @UseGuards(JwtAuthGuard)
+    @Get('email/:email')
+    async findOneByEmail(@Param('email') email: string) {
+    return await this.medicService.findOneByEmail(email);
+    }
+
     
     @Post()
     async create(@Body() medicDto: MedicDto) {
