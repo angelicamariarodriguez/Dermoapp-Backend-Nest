@@ -15,6 +15,10 @@ export class SymptomService {
         return await this.symptomRepository.find();
     }
 
+    async findAllBySpecialty(specialty: string): Promise<SymptomEntity[]> {
+        return await this.symptomRepository.find({ relations: ["consultations"] });
+    }
+
     async findOne(id: string): Promise<SymptomEntity> {
         const symptom: SymptomEntity = await this.symptomRepository.findOne({where: {id}} );
         if (!symptom)

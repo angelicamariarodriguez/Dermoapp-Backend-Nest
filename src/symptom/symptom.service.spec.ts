@@ -51,6 +51,14 @@ describe('SymptomService', () => {
     expect(symptom.specialty).toEqual(storedSymptom.specialty)
   });
 
+  it('findAllBySpecialty should return a all symptoms that belong to an specialty', async () => {
+    const storedSymptom: SymptomEntity = symptomsList[0];
+    const symptom: SymptomEntity = await service.findOne(storedSymptom.id);
+    expect(symptom).not.toBeNull();
+    expect(symptom.typeOfInjury).toEqual(storedSymptom.typeOfInjury)
+    expect(symptom.specialty).toEqual(storedSymptom.specialty)
+  });
+
   it('findOne should throw an exception for an invalid symptom', async () => {
     await expect(() => service.findOne("0")).rejects.toHaveProperty("message", "The symptom with the given id was not found")
   });
