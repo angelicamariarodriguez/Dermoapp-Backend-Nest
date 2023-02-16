@@ -13,21 +13,22 @@ import { ConsultationModule } from './consultation/consultation.module';
 import { SymptomModule } from './symptom/symptom.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
 import { SymptomEntity } from './symptom/symptom.entity';
+import { PatientConsultationModule } from './patient-consultation/patient-consultation.module';
 
 @Module({
   imports: [MedicModule, PatientModule, UserModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', // Production DB host is: '10.77.144.3'
+      host: '10.77.144.3', // Production DB host is: '10.77.144.3'
       port: 5432,
       username: 'postgres',
-      password: 'postgres', // Production DB password is 'dermoapp23#'
+      password: 'dermoapp23#', // Production DB password is 'dermoapp23#'
       database: 'dermoapp',
       entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity, SymptomEntity],
       dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule, ConsultationModule, SymptomModule,
+    }), UserModule, AuthModule, ConsultationModule, SymptomModule, PatientConsultationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
