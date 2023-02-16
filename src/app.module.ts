@@ -13,6 +13,7 @@ import { ConsultationModule } from './consultation/consultation.module';
 import { SymptomModule } from './symptom/symptom.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
 import { SymptomEntity } from './symptom/symptom.entity';
+import { SymptomConsultationModule } from './symptom-consultation/symptom-consultation.module';
 
 @Module({
   imports: [MedicModule, PatientModule, UserModule, 
@@ -27,7 +28,7 @@ import { SymptomEntity } from './symptom/symptom.entity';
       dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule, ConsultationModule, SymptomModule,
+    }), UserModule, AuthModule, ConsultationModule, SymptomModule, SymptomConsultationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

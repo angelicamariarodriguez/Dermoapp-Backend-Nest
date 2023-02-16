@@ -5,11 +5,16 @@ import { SymptomEntity } from './symptom.entity';
 import { SymptomService } from './symptom.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { faker } from '@faker-js/faker';
+import { MedicEntity } from '../medic/medic.entity';
+import { MedicService } from '../medic/medic.service';
 
 describe('SymptomService', () => {
   let service: SymptomService;
   let repository: Repository<SymptomEntity>;
   let symptomsList: SymptomEntity[];
+  let medicsList: MedicEntity[];
+  let medicRepository: Repository<MedicEntity>;
+  
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -19,18 +24,31 @@ describe('SymptomService', () => {
 
     service = module.get<SymptomService>(SymptomService);
     repository = module.get<Repository<SymptomEntity>>(getRepositoryToken(SymptomEntity));
+    medicRepository = module.get<Repository<MedicEntity>>(getRepositoryToken(MedicEntity));
     await seedDatabase();
   });
 
   const seedDatabase = async () => {
     repository.clear();
     symptomsList = [];
+    medicsList = [];
     for(let i = 0; i < 5; i++){
         const symptom: SymptomEntity = await repository.save({
         typeOfInjury: faker.lorem.word(), 
-        specialty: faker.lorem.word()})
+        specialty: "test"})
         symptomsList.push(symptom);
     }
+    const medic: MedicEntity = await medicRepository.save({
+      name: faker.name.firstName(), 
+      lastName: faker.name.lastName(), 
+      country: faker.lorem.word(), 
+      profLicense: faker.lorem.sentence(),
+      email: faker.internet.email(),
+      password: faker.internet.password(), 
+      specialty: "test", 
+      profilePicture: faker.image.imageUrl()
+    });
+    medicsList.push(medic);
   }
 
   it('should be defined', () => {
@@ -51,12 +69,19 @@ describe('SymptomService', () => {
     expect(symptom.specialty).toEqual(storedSymptom.specialty)
   });
 
-  it('findAllBySpecialty should return a all symptoms that belong to an specialty', async () => {
-    const storedSymptom: SymptomEntity = symptomsList[0];
-    const symptom: SymptomEntity = await service.findOne(storedSymptom.id);
-    expect(symptom).not.toBeNull();
-    expect(symptom.typeOfInjury).toEqual(storedSymptom.typeOfInjury)
-    expect(symptom.specialty).toEqual(storedSymptom.specialty)
+  it('findAllBySpecialty should return all symptoms that belong to an specialty', async () => {
+    const storedMedic: MedicEntity = medicsList[0];
+    const symptom1: SymptomEntity = {
+      id: "",
+      typeOfInjury: faker.lorem.word(), 
+      specialty: faker.lorem.word(), 
+      consultations: [],
+    }
+    const newSymptom1: SymptomEntity = await service.create(symptom1);
+    
+    const symptoms: SymptomEntity[] = await service.findAllBySpecialty(storedMedic.specialty);
+    expect(symptoms).not.toBeNull();
+    expect(symptoms).toHaveLength(5);
   });
 
   it('findOne should throw an exception for an invalid symptom', async () => {

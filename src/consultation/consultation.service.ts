@@ -8,7 +8,7 @@ import { ConsultationEntity } from './consultation.entity';
 export class ConsultationService {
     constructor(
         @InjectRepository(ConsultationEntity)
-        private readonly consultationRepository: Repository<ConsultationEntity>
+        private readonly consultationRepository: Repository<ConsultationEntity>,
     ){}
 
     async findAll(): Promise<ConsultationEntity[]> {
@@ -42,4 +42,5 @@ export class ConsultationService {
       
         await this.consultationRepository.remove(consultation);
     }
+
 }

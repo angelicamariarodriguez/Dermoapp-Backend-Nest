@@ -12,11 +12,11 @@ export class SymptomService {
     ){}
 
     async findAll(): Promise<SymptomEntity[]> {
-        return await this.symptomRepository.find();
+        return await this.symptomRepository.find({relations: ["consultations"]} );
     }
 
     async findAllBySpecialty(specialty: string): Promise<SymptomEntity[]> {
-        return await this.symptomRepository.find({ relations: ["consultations"] });
+        return await this.symptomRepository.find({where: {specialty}, relations: ["consultations"] } );
     }
 
     async findOne(id: string): Promise<SymptomEntity> {

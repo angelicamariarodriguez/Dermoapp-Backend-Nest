@@ -12,7 +12,7 @@ export class SymptomEntity {
     @Column()
     specialty: string;
 
-    @OneToMany(() => ConsultationEntity, consultation => consultation.patient)
+    @OneToMany(() => ConsultationEntity, consultation => consultation.symptom)
     consultations: ConsultationEntity[];
     
 }
