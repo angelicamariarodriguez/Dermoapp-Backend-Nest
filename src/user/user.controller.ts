@@ -13,6 +13,12 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class UserController {
 
     constructor(private readonly userService: UserService) {}
+
+    @Get('ping')
+    @HttpCode(200)
+    getHealth() {
+      return 'Echo - Servicio Dermoapp-Backend disponible';
+    }
     
     @UseGuards(JwtAuthGuard)
     @Get(':email')

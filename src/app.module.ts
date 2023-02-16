@@ -14,6 +14,7 @@ import { SymptomModule } from './symptom/symptom.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
 import { SymptomEntity } from './symptom/symptom.entity';
 import { SymptomConsultationModule } from './symptom-consultation/symptom-consultation.module';
+import { PatientConsultationModule } from './patient-consultation/patient-consultation.module';
 
 @Module({
   imports: [MedicModule, PatientModule, UserModule, 
@@ -28,7 +29,8 @@ import { SymptomConsultationModule } from './symptom-consultation/symptom-consul
       dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule, ConsultationModule, SymptomModule, SymptomConsultationModule,
+
+    }), UserModule, AuthModule, ConsultationModule, SymptomModule, SymptomConsultationModule, PatientConsultationModule
   ],
   controllers: [AppController],
   providers: [AppService],
