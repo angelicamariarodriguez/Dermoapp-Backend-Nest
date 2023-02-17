@@ -23,6 +23,12 @@ export class ConsultationController {
     return await this.consultationService.findOne(consultationId);
   }
 
+  //@UseGuards(JwtAuthGuard)
+  @Get('specialty/:specialty')
+  async findAllBySpecialty(@Param('specialty') specialty: string) {
+    return await this.consultationService.findAllBySpecialty(specialty);
+  }
+
   
   @Post()
   async create(@Body() consultationDto: ConsultationDto) {

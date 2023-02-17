@@ -1,6 +1,5 @@
 import { MedicEntity } from '../medic/medic.entity';
 import { PatientEntity } from '../patient/patient.entity';
-import { SymptomEntity } from '../symptom/symptom.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -23,8 +22,15 @@ export class ConsultationEntity {
  @Column()
  image: string; //cambiar cuando se defina como se va a hacer el upload
 
- @ManyToOne(() => SymptomEntity, symptom => symptom.consultations)
- symptom: SymptomEntity;
+ @Column()
+ creationDate: Date;
+
+ @Column()
+ typeOfInjury: string;
+
+ @Column()
+ specialty: string;
+
 
  @ManyToOne(() => MedicEntity, medic => medic.consultations)
  medic: MedicEntity;

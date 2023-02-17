@@ -88,4 +88,5 @@ export class PatientConsultationService {
        patient.consultations = patient.consultations.filter(e => e.id !== consultationId);
        await this.patientRepository.save(patient);
    }  
+
 }

@@ -10,10 +10,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserEntity } from './user/user.entity';
 import { ConsultationModule } from './consultation/consultation.module';
-import { SymptomModule } from './symptom/symptom.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
-import { SymptomEntity } from './symptom/symptom.entity';
-import { SymptomConsultationModule } from './symptom-consultation/symptom-consultation.module';
 import { PatientConsultationModule } from './patient-consultation/patient-consultation.module';
 
 @Module({
@@ -25,12 +22,11 @@ import { PatientConsultationModule } from './patient-consultation/patient-consul
       username: 'postgres',
       password: 'postgres', // Production DB password is 'dermoapp23#'
       database: 'dermoapp',
-      entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity, SymptomEntity],
+      entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity],
       dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-
-    }), UserModule, AuthModule, ConsultationModule, SymptomModule, SymptomConsultationModule, PatientConsultationModule
+    }), UserModule, AuthModule, ConsultationModule, PatientConsultationModule
   ],
   controllers: [AppController],
   providers: [AppService],
