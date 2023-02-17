@@ -39,7 +39,10 @@ describe('PatientConsultationService', () => {
           numberOfInjuries: faker.lorem.word(),
           distribution: faker.lorem.word(),
           comment: faker.lorem.paragraph(),
-          image: faker.image.imageUrl()
+          image: faker.image.imageUrl(),
+          creationDate:faker.date.birthdate(),
+          typeOfInjury: faker.lorem.word(),
+          specialty: faker.lorem.word()
         })
         consultationsList.push(consultation);
     }
@@ -66,7 +69,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl()
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     const newPatient: PatientEntity = await patientRepository.save({
@@ -110,7 +116,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl()
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     await expect(() => service.addConsultationPatient("0", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given id was not found");
@@ -142,7 +151,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl()
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     await expect(()=> service.findConsultationByPatientIdConsultationId(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
@@ -163,7 +175,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl() 
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     const updatedPatient: PatientEntity = await service.associateConsultationsPatient(patient.id, [newConsultation]);
@@ -182,7 +197,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl()
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     await expect(()=> service.associateConsultationsPatient("0", [newConsultation])).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
@@ -222,7 +240,10 @@ describe('PatientConsultationService', () => {
       numberOfInjuries: faker.lorem.word(),
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
-      image: faker.image.imageUrl()
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word()
     });
 
     await expect(()=> service.deleteConsultationPatient(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 

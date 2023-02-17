@@ -43,4 +43,8 @@ export class ConsultationService {
         await this.consultationRepository.remove(consultation);
     }
 
+    async findAllBySpecialty(specialty: string): Promise<ConsultationEntity[]> {
+        return await this.consultationRepository.find({where: {specialty}, relations: ["patient"] } );
+    }
+
 }

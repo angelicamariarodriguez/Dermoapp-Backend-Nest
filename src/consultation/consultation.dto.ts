@@ -21,5 +21,14 @@ export class ConsultationDto {
  //@IsUrl()
  @IsNotEmpty()
  readonly image: string;
+
+ @IsNotEmpty()
+ readonly typeOfInjury: string;
+
+ @IsNotEmpty()
+ readonly specialty: string;
+
+ @IsNotEmpty()
+ readonly creationDate: string;
 }
 /* archivo: src/patient/patient.dto.ts */
