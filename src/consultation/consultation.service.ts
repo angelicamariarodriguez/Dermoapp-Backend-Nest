@@ -24,6 +24,10 @@ export class ConsultationService {
     }
     
     async create(consultation: ConsultationEntity): Promise<ConsultationEntity> {
+        let now= new Date();
+        consultation = {
+            ...consultation, creationDate: now.toISOString()
+          }
         return await this.consultationRepository.save(consultation);
     }
 

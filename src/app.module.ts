@@ -17,10 +17,10 @@ import { PatientConsultationModule } from './patient-consultation/patient-consul
   imports: [MedicModule, PatientModule, UserModule, 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', // Production DB host is: '10.77.144.3'
+      host: '10.77.144.3', // Production DB host is: '10.77.144.3'
       port: 5432,
       username: 'postgres',
-      password: 'postgres', // Production DB password is 'dermoapp23#'
+      password: 'dermoapp23#', // Production DB password is 'dermoapp23#'
       database: 'dermoapp',
       entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity],
       dropSchema: true, // Need to comment for production
