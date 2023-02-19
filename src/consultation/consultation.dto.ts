@@ -28,7 +28,7 @@ export class ConsultationDto {
  @IsNotEmpty()
  readonly specialty: string;
 
- @IsNotEmpty()
- readonly creationDate: string;
+ //@IsNotEmpty()
+ //readonly creationDate: string;
 }
 /* archivo: src/patient/patient.dto.ts */

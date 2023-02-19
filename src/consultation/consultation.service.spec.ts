@@ -43,7 +43,7 @@ describe('ConsultationService', () => {
         distribution: faker.lorem.word(),
         comment: faker.lorem.paragraph(),
         image: faker.image.imageUrl(),
-        creationDate:faker.date.birthdate(),
+        creationDate:faker.date.birthdate().toISOString(),
         typeOfInjury: faker.lorem.word(),
         specialty: faker.lorem.word()
       });
@@ -57,7 +57,7 @@ describe('ConsultationService', () => {
         distribution: faker.lorem.word(),
         comment: faker.lorem.paragraph(),
         image: faker.image.imageUrl(),
-        creationDate:faker.date.birthdate(),
+        creationDate:faker.date.birthdate().toISOString(),
         typeOfInjury: faker.lorem.word(),
         specialty: "specialty1"
       });
@@ -123,7 +123,7 @@ describe('ConsultationService', () => {
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
       image: faker.image.imageUrl(),
-      creationDate:faker.date.birthdate(),
+      creationDate:faker.date.birthdate().toISOString(),
       medic: medic,
       patient: patient,
       typeOfInjury: faker.lorem.word(),

@@ -23,7 +23,7 @@ export class ConsultationEntity {
  image: string; //cambiar cuando se defina como se va a hacer el upload
 
  @Column()
- creationDate: Date;
+ creationDate: string;
 
  @Column()
  typeOfInjury: string;
