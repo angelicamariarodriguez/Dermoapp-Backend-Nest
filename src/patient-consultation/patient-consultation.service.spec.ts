@@ -257,7 +257,7 @@ describe('PatientConsultationService', () => {
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
       image: faker.image.imageUrl(),
-      creationDate:faker.date.birthdate(),
+      creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
       specialty: faker.lorem.word()
     });
@@ -304,7 +304,7 @@ describe('PatientConsultationService', () => {
       distribution: faker.lorem.word(),
       comment: faker.lorem.paragraph(),
       image: faker.image.imageUrl(),
-      creationDate:faker.date.birthdate(),
+      creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
       specialty: faker.lorem.word()
     });
