@@ -11,9 +11,14 @@ import { plainToInstance } from 'class-transformer';
 export class PatientConsultationController {
    constructor(private readonly patientConsultationService: PatientConsultationService){}
 
-   @Post(':patientId/consultations/:consultationId')
+   /*@Post(':patientId/consultations/:consultationId')
    async addConsultationPatient(@Param('patientId') patientId: string, @Param('consultationId') consultationId: string){
        return await this.patientConsultationService.addConsultationPatient(patientId, consultationId);
+   }*/
+
+   @Post(':patientEmail/consultations/:consultationId')
+   async addConsultationPatientByEmail(@Param('patientEmail') patientEmail: string, @Param('consultationId') consultationId: string){
+       return await this.patientConsultationService.addConsultationPatientByEmail(patientEmail, consultationId);
    }
 
    @Get(':patientId/consultations/:consultationId')
