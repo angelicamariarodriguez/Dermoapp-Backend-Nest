@@ -16,7 +16,7 @@ export class PatientEntity {
  password: string;
  
  @Column()
- birthDate: Date;
+ birthDate: string;
 
  @Column()
  country: string;

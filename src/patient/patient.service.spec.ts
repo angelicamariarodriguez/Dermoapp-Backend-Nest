@@ -30,7 +30,7 @@ describe('PatientService', () => {
         name: faker.name.fullName(), 
         email: faker.internet.email(),
         password: faker.internet.password(),
-        birthDate: faker.date.birthdate(), 
+        birthDate: faker.date.birthdate().toISOString(), 
         country: faker.address.country(),
         skinType: faker.color.human(),
         profilePicture: faker.image.imageUrl()})
@@ -71,7 +71,7 @@ describe('PatientService', () => {
       name: faker.name.fullName(), 
       email: faker.internet.email(),
       password: faker.internet.password(),
-      birthDate: faker.date.birthdate(), 
+      birthDate: faker.date.birthdate().toISOString(), 
       country: faker.address.country(),
       skinType: faker.color.human(),
       profilePicture: faker.image.imageUrl(),
