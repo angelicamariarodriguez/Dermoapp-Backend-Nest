@@ -29,6 +29,18 @@ export class PatientConsultationService {
        patient.consultations = [...patient.consultations, consultation];
        return await this.patientRepository.save(patient);
      }
+     async addConsultationPatientByEmail(patientEmail: string, consultationId: string): Promise<PatientEntity> {
+      const consultation: ConsultationEntity = await this.consultationRepository.findOne({where: {id: consultationId}});
+      if (!consultation)
+        throw new BusinessLogicException("The consultation with the given id was not found", BusinessError.NOT_FOUND);
+    
+      const patient: PatientEntity = await this.patientRepository.findOne({where: {email: patientEmail}, relations: ["consultations"]})
+      if (!patient)
+        throw new BusinessLogicException("The patient with the given email was not found", BusinessError.NOT_FOUND);
+  
+      patient.consultations = [...patient.consultations, consultation];
+      return await this.patientRepository.save(patient);
+    }
    
    async findConsultationByPatientIdConsultationId(patientId: string, consultationId: string): Promise<ConsultationEntity> {
        const consultation: ConsultationEntity = await this.consultationRepository.findOne({where: {id: consultationId}});
