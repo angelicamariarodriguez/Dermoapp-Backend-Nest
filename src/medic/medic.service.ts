@@ -42,4 +42,12 @@ export class MedicService {
       
         await this.medicRepository.remove(medic);
     }
+
+    async findOneByEmail(email: string): Promise<MedicEntity> {
+        const medic: MedicEntity = await this.medicRepository.findOne({where: {email}} );
+        if (!medic)
+          throw new BusinessLogicException("The medic with the given email was not found", BusinessError.NOT_FOUND);
+    
+        return medic;
+       }
 }

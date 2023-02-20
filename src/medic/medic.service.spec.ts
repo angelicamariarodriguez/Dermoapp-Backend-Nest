@@ -78,8 +78,8 @@ describe('MedicService', () => {
       email: faker.internet.email(),
       password: faker.internet.password(), 
       specialty: faker.lorem.word(), 
-      profilePicture: faker.image.imageUrl()
-      //consultations: [],
+      profilePicture: faker.image.imageUrl(),
+      consultations: [],
     }
  
     const newMedic: MedicEntity = await service.create(medic);
@@ -132,4 +132,19 @@ describe('MedicService', () => {
     await service.delete(medic.id);
     await expect(() => service.delete("0")).rejects.toHaveProperty("message", "The medic with the given id was not found")
   });
+
+  it('findOneByEmail should return a medic by email', async () => {
+    const storedMedic: MedicEntity = medicsList[0];
+    const medic: MedicEntity = await service.findOneByEmail(storedMedic.email);
+    expect(medic).not.toBeNull();
+    expect(medic.name).toEqual(storedMedic.name)
+    expect(medic.lastName).toEqual(storedMedic.lastName)
+    expect(medic.country).toEqual(storedMedic.country)
+    expect(medic.profLicense).toEqual(storedMedic.profLicense)
+    expect(medic.profilePicture).toEqual(storedMedic.profilePicture)
+    expect(medic.email).toEqual(storedMedic.email)
+    expect(medic.password).toEqual(storedMedic.password)
+    expect(medic.specialty).toEqual(storedMedic.specialty)
+  });
+
 });
