@@ -12,7 +12,7 @@ export class ConsultationService {
     ){}
 
     async findAll(): Promise<ConsultationEntity[]> {
-        return await this.consultationRepository.find();
+        return await this.consultationRepository.find({relations: ["patient"] } );
     }
 
     async findOne(id: string): Promise<ConsultationEntity> {
@@ -48,7 +48,12 @@ export class ConsultationService {
     }
 
     async findAllBySpecialty(specialty: string): Promise<ConsultationEntity[]> {
-        return await this.consultationRepository.find({where: {specialty}, relations: ["patient"] } );
+
+        const consultations: ConsultationEntity[] = await this.consultationRepository.find({where: {specialty}, relations: ["patient"] } );
+        if (consultations.length==0)
+          throw new BusinessLogicException("There are not consultations for the given specialty", BusinessError.NOT_FOUND);
+
+        return consultations;
     }
 
 }
