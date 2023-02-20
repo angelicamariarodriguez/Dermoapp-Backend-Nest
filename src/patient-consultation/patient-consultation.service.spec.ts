@@ -312,4 +312,5 @@ describe('PatientConsultationService', () => {
     await expect(() => service.addConsultationPatientByEmail("aaa@aaa.com", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given email was not found");
   });
 
+
 });

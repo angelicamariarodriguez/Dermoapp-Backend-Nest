@@ -151,4 +151,8 @@ describe('ConsultationService', () => {
     expect(consultatios).not.toBeNull();
     expect(consultatios).toHaveLength(2);
   });
+
+  it('findAllBySpecialty should throw an exception for an invalid specialty', async () => {
+    await expect(() => service.findAllBySpecialty("x")).rejects.toHaveProperty("message", "There are not consultations for the given specialty")
+  });
 });
