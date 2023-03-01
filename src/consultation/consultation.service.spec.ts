@@ -113,6 +113,8 @@ describe('ConsultationService', () => {
     expect(consultation.creationDate).toEqual(storedConsultation.creationDate)
     expect(consultation.typeOfInjury).toEqual(storedConsultation.typeOfInjury)
     expect(consultation.specialty).toEqual(storedConsultation.specialty)
+    expect(consultation.diagnosis).toEqual(storedConsultation.diagnosis)
+    expect(consultation.asigned).toEqual(storedConsultation.asigned)
   });
 
   it('findOne should throw an exception for an invalid consultation', async () => {
@@ -149,6 +151,8 @@ describe('ConsultationService', () => {
     expect(storedConsultation.creationDate).toEqual(newConsultation.creationDate)
     expect(storedConsultation.typeOfInjury).toEqual(newConsultation.typeOfInjury)
     expect(storedConsultation.specialty).toEqual(newConsultation.specialty)
+    expect(storedConsultation.diagnosis).toEqual(newConsultation.diagnosis)
+    expect(storedConsultation.asigned).toEqual(newConsultation.asigned)
   });
 
   it('findAllBySpecialty should return all consultations that belong to a specialty', async () => {

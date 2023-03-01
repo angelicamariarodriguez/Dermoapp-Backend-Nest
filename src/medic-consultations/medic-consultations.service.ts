@@ -24,6 +24,9 @@ export class MedicConsultationsService {
         if (!medic)
           throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND);    
         medic.consultations = [...medic.consultations, consultation];
+
+        consultation.asigned = true
+        this.consultationRepository.save({...consultation, ...consultation});
         return await this.medicRepository.save(medic);
       }
 
