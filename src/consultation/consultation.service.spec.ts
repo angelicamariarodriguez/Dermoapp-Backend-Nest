@@ -48,6 +48,7 @@ describe('ConsultationService', () => {
         specialty: faker.lorem.word(),
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
+        acceptDiagnosis: false
       });
       consultationsList.push(consultation);
     }
@@ -64,6 +65,7 @@ describe('ConsultationService', () => {
         specialty: "specialty1",
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
+        acceptDiagnosis: false
       });
       consultationsList.push(consultation);
     }
@@ -115,6 +117,7 @@ describe('ConsultationService', () => {
     expect(consultation.specialty).toEqual(storedConsultation.specialty)
     expect(consultation.diagnosis).toEqual(storedConsultation.diagnosis)
     expect(consultation.asigned).toEqual(storedConsultation.asigned)
+    expect(consultation.acceptDiagnosis).toEqual(storedConsultation.acceptDiagnosis)
   });
 
   it('findOne should throw an exception for an invalid consultation', async () => {
@@ -136,6 +139,7 @@ describe('ConsultationService', () => {
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
       asigned: false,
+      acceptDiagnosis: false
     }
 
     const newConsultation: ConsultationEntity = await service.create(consultation);
@@ -153,6 +157,7 @@ describe('ConsultationService', () => {
     expect(storedConsultation.specialty).toEqual(newConsultation.specialty)
     expect(storedConsultation.diagnosis).toEqual(newConsultation.diagnosis)
     expect(storedConsultation.asigned).toEqual(newConsultation.asigned)
+    expect(storedConsultation.acceptDiagnosis).toEqual(newConsultation.acceptDiagnosis)
   });
 
   it('findAllBySpecialty should return all consultations that belong to a specialty', async () => {
@@ -183,4 +188,15 @@ describe('ConsultationService', () => {
     }
     await expect(() => service.update("0", consultation)).rejects.toHaveProperty("message", "The consultation with the given id was not found")
   });
+
+  it('update should modify a consultation', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    consultation.acceptDiagnosis = true;
+     const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
+    expect(updatedConsultation).not.toBeNull();
+    const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.acceptDiagnosis).toEqual(true)
+  });
+
 });

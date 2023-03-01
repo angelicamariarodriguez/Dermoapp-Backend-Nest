@@ -37,6 +37,10 @@ export class ConsultationDto {
  @IsBoolean()
  readonly asigned: boolean;
 
+ @IsNotEmpty()
+ @IsBoolean()
+ readonly acceptDiagnosis: boolean;
+
  //@IsNotEmpty()
  //readonly creationDate: string;
 }
