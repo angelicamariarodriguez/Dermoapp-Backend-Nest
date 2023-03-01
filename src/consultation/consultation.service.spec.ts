@@ -161,4 +161,22 @@ describe('ConsultationService', () => {
   it('findAllBySpecialty should throw an exception for an invalid specialty', async () => {
     await expect(() => service.findAllBySpecialty("x")).rejects.toHaveProperty("message", "There are not consultations for the given specialty")
   });
+
+  it('update should modify a consultation', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    consultation.diagnosis = "New diagnosis";
+     const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
+    expect(updatedConsultation).not.toBeNull();
+    const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.diagnosis).toEqual(consultation.diagnosis)
+  });
+
+  it('update should throw an exception for an invalid consultation', async () => {
+    let consultation: ConsultationEntity = consultationsList[0];
+    consultation = {
+      ...consultation, diagnosis: "New diagnosis"
+    }
+    await expect(() => service.update("0", consultation)).rejects.toHaveProperty("message", "The consultation with the given id was not found")
+  });
 });
