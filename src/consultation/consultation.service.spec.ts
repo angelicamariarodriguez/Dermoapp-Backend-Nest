@@ -45,7 +45,9 @@ describe('ConsultationService', () => {
         image: faker.image.imageUrl(),
         creationDate:faker.date.birthdate().toISOString(),
         typeOfInjury: faker.lorem.word(),
-        specialty: faker.lorem.word()
+        specialty: faker.lorem.word(),
+        diagnosis: faker.lorem.paragraph(),
+        asigned: false,
       });
       consultationsList.push(consultation);
     }
@@ -59,7 +61,9 @@ describe('ConsultationService', () => {
         image: faker.image.imageUrl(),
         creationDate:faker.date.birthdate().toISOString(),
         typeOfInjury: faker.lorem.word(),
-        specialty: "specialty1"
+        specialty: "specialty1",
+        diagnosis: faker.lorem.paragraph(),
+        asigned: false,
       });
       consultationsList.push(consultation);
     }
@@ -127,7 +131,9 @@ describe('ConsultationService', () => {
       medic: medic,
       patient: patient,
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     }
 
     const newConsultation: ConsultationEntity = await service.create(consultation);

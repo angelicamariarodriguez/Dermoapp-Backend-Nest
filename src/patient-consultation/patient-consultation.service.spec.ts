@@ -42,7 +42,9 @@ describe('PatientConsultationService', () => {
           image: faker.image.imageUrl(),
           creationDate:faker.date.birthdate().toISOString(),
           typeOfInjury: faker.lorem.word(),
-          specialty: faker.lorem.word()
+          specialty: faker.lorem.word(),
+          diagnosis: faker.lorem.paragraph(),
+          asigned: false,
         })
         consultationsList.push(consultation);
     }
@@ -72,7 +74,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     const newPatient: PatientEntity = await patientRepository.save({
@@ -119,7 +123,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     await expect(() => service.addConsultationPatient("0", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given id was not found");
@@ -154,7 +160,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     await expect(()=> service.findConsultationByPatientIdConsultationId(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
@@ -178,7 +186,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     const updatedPatient: PatientEntity = await service.associateConsultationsPatient(patient.id, [newConsultation]);
@@ -200,7 +210,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     await expect(()=> service.associateConsultationsPatient("0", [newConsultation])).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
@@ -244,7 +256,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     await expect(()=> service.deleteConsultationPatient(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
@@ -259,7 +273,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     const newPatient: PatientEntity = await patientRepository.save({
@@ -306,7 +322,9 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
     });
 
     await expect(() => service.addConsultationPatientByEmail("aaa@aaa.com", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given email was not found");
