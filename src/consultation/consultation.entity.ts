@@ -37,6 +37,9 @@ export class ConsultationEntity {
  @Column()
  asigned: boolean;
 
+ @Column()
+ acceptDiagnosis: boolean;
+
  @ManyToOne(() => MedicEntity, medic => medic.consultations)
  medic: MedicEntity;
 

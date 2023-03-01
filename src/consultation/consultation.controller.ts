@@ -49,4 +49,5 @@ export class ConsultationController {
   async delete(@Param('consultationId') consultationId: string) {
     return await this.consultationService.delete(consultationId);
   }
+
 }

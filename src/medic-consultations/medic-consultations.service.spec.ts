@@ -44,6 +44,7 @@ describe('MedicConsultationsService', () => {
           specialty: faker.lorem.word(),
           diagnosis: faker.lorem.paragraph(),
           asigned: false,
+          acceptDiagnosis: false
         })
         consultationsList.push(consultation);
     }
@@ -77,6 +78,7 @@ describe('MedicConsultationsService', () => {
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
       asigned: false,
+      acceptDiagnosis: false
     });
 
     const newMedic: MedicEntity = await medicRepository.save({
@@ -101,6 +103,7 @@ describe('MedicConsultationsService', () => {
     expect(result.consultations[0].image).toBe(newConsultation.image)
     expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
     expect(result.consultations[0].asigned).toBe(true)
+    expect(result.consultations[0].acceptDiagnosis).toBe(newConsultation.acceptDiagnosis)
   });
 
   it('addConsultationToMedic should thrown exception for an invalid consultation', async () => {
@@ -130,6 +133,7 @@ describe('MedicConsultationsService', () => {
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
       asigned: false,
+      acceptDiagnosis: false
     });
 
     await expect(() => service.addConsultationToMedic("0", newConsultation.id)).rejects.toHaveProperty("message", "The medic with the given id was not found");
