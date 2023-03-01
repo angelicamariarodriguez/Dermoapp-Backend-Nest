@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import {IsDateString, IsEmail, IsNotEmpty, IsString, IsUrl, IsNumber, IsBoolean} from 'class-validator';
 export class ConsultationDto {
 
@@ -40,7 +40,4 @@ export class ConsultationDto {
  @IsNotEmpty()
  @IsBoolean()
  readonly acceptDiagnosis: boolean;
-
- //@IsNotEmpty()
- //readonly creationDate: string;
 }

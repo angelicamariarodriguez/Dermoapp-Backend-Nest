@@ -23,13 +23,13 @@ export class ConsultationController {
     return await this.consultationService.findOne(consultationId);
   }
 
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get('specialty/:specialty')
   async findAllBySpecialty(@Param('specialty') specialty: string) {
     return await this.consultationService.findAllBySpecialty(specialty);
   }
 
-  
+  //@UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() consultationDto: ConsultationDto) {
     const consultation: ConsultationEntity = plainToInstance(ConsultationEntity, consultationDto);
