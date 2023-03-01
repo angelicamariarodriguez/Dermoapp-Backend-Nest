@@ -16,7 +16,7 @@ export class MedicService {
     }
 
     async findOne(id: string): Promise<MedicEntity> {
-        const medic: MedicEntity = await this.medicRepository.findOne({where: {id}} );
+        const medic: MedicEntity = await this.medicRepository.findOne({where: {id}, relations: ["consultations"]} );
         if (!medic)
           throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND);
     
