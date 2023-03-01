@@ -99,6 +99,8 @@ describe('MedicConsultationsService', () => {
     expect(result.consultations[0].distribution).toBe(newConsultation.distribution)
     expect(result.consultations[0].comment).toBe(newConsultation.comment)
     expect(result.consultations[0].image).toBe(newConsultation.image)
+    expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
+    expect(result.consultations[0].asigned).toBe(true)
   });
 
   it('addConsultationToMedic should thrown exception for an invalid consultation', async () => {

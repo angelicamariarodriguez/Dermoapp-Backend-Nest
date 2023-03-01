@@ -98,6 +98,8 @@ describe('PatientConsultationService', () => {
     expect(result.consultations[0].distribution).toBe(newConsultation.distribution)
     expect(result.consultations[0].comment).toBe(newConsultation.comment)
     expect(result.consultations[0].image).toBe(newConsultation.image)
+    expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
+    expect(result.consultations[0].asigned).toBe(newConsultation.asigned)
   });
 
   it('addConsultationPatient should thrown exception for an invalid consultation', async () => {
@@ -140,6 +142,8 @@ describe('PatientConsultationService', () => {
     expect(storedConsultation.distribution).toBe(consultation.distribution);
     expect(storedConsultation.comment).toBe(consultation.comment);
     expect(storedConsultation.image).toBe(consultation.image);
+    expect(storedConsultation.diagnosis).toBe(consultation.diagnosis);
+    expect(storedConsultation.asigned).toBe(consultation.asigned);
   });
 
   it('findConsultationByPatientIdConsultationId should throw an exception for an invalid consultation', async () => {
@@ -199,6 +203,8 @@ describe('PatientConsultationService', () => {
     expect(updatedPatient.consultations[0].distribution).toBe(newConsultation.distribution);
     expect(updatedPatient.consultations[0].comment).toBe(newConsultation.comment);
     expect(updatedPatient.consultations[0].image).toBe(newConsultation.image);
+    expect(updatedPatient.consultations[0].diagnosis).toBe(newConsultation.diagnosis);
+    expect(updatedPatient.consultations[0].asigned).toBe(newConsultation.asigned);
   });
 
   it('associateConsultationsPatient should throw an exception for an invalid patient', async () => {
@@ -297,6 +303,8 @@ describe('PatientConsultationService', () => {
     expect(result.consultations[0].distribution).toBe(newConsultation.distribution)
     expect(result.consultations[0].comment).toBe(newConsultation.comment)
     expect(result.consultations[0].image).toBe(newConsultation.image)
+    expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
+    expect(result.consultations[0].asigned).toBe(newConsultation.asigned)
   });
 
   it('addConsultationPatientByEmail should thrown exception for an invalid consultation', async () => {
