@@ -13,6 +13,7 @@ import { ConsultationModule } from './consultation/consultation.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
 import { PatientConsultationModule } from './patient-consultation/patient-consultation.module';
 import { MedicConsultationsModule } from './medic-consultations/medic-consultations.module';
+import { AutodiagnosisModule } from './autodiagnosis/autodiagnosis.module';
 
 @Module({
   imports: [MedicModule, PatientModule, UserModule, 
@@ -27,7 +28,7 @@ import { MedicConsultationsModule } from './medic-consultations/medic-consultati
       dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule, ConsultationModule, PatientConsultationModule, MedicConsultationsModule
+    }), UserModule, AuthModule, ConsultationModule, PatientConsultationModule, MedicConsultationsModule, AutodiagnosisModule
   ],
   controllers: [AppController],
   providers: [AppService],
