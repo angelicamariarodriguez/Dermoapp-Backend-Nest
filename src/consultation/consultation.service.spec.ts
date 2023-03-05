@@ -138,7 +138,7 @@ describe('ConsultationService', () => {
       typeOfInjury: faker.lorem.word(),
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
-      asigned: false,
+      asigned: true,
       acceptDiagnosis: "no"
     }
 
@@ -156,7 +156,7 @@ describe('ConsultationService', () => {
     expect(storedConsultation.typeOfInjury).toEqual(newConsultation.typeOfInjury)
     expect(storedConsultation.specialty).toEqual(newConsultation.specialty)
     expect(storedConsultation.diagnosis).toEqual(newConsultation.diagnosis)
-    expect(storedConsultation.asigned).toEqual(newConsultation.asigned)
+    expect(storedConsultation.asigned).toEqual(false)
     expect(storedConsultation.acceptDiagnosis).toEqual(newConsultation.acceptDiagnosis)
   });
 

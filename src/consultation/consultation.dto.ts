@@ -33,8 +33,7 @@ export class ConsultationDto {
  @IsString()
  readonly diagnosis: string;
 
- @IsNotEmpty()
- @IsBoolean()
+
  readonly asigned: boolean;
 
  @IsNotEmpty()
