@@ -4,6 +4,7 @@ import { ConsultationEntity } from '../consultation/consultation.entity';
 import { Repository } from 'typeorm';
 import { MedicEntity } from '../medic/medic.entity';
 import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
+import { PatientEntity } from 'src/patient/patient.entity';
 
 @Injectable()
 export class MedicConsultationsService {
@@ -30,19 +31,18 @@ export class MedicConsultationsService {
         return await this.medicRepository.save(medic);
       }
 
-    async findConsultationsByMedicId(medicId: string): Promise<ConsultationEntity[]> {
-        const medic: MedicEntity = await this.medicRepository.findOne({where: {id: medicId}, relations: ["consultations"]});
-        if (!medic)
-          throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND)
-       
-        return medic.consultations;
-    }
-
-    async findConsultationsByMedicId2(medicId: string): Promise<ConsultationEntity[]> {
+    async findConsultationsByMedicId(medicId: string): Promise<PatientEntity[]> {
       const medic: MedicEntity = await this.medicRepository.findOne({where: {id: medicId}, relations: ["consultations"]});
       if (!medic)
         throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND)
-     
-      return medic.consultations;
+      
+      const patients: PatientEntity[] = [];
+      const consultations: ConsultationEntity[] = medic.consultations;
+
+      for(let i=0;i<consultations.length;i++){
+        const consultation = this.consultationRepository.findOne({where: {id: consultations[i].id}, relations: ["patient"]})
+        patients[i] = (await consultation).patient
+      }
+      return patients;
   }
 }
