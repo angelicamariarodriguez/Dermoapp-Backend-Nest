@@ -48,7 +48,7 @@ describe('ConsultationService', () => {
         specialty: faker.lorem.word(),
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
-        acceptDiagnosis: false
+        acceptDiagnosis: "no"
       });
       consultationsList.push(consultation);
     }
@@ -65,7 +65,7 @@ describe('ConsultationService', () => {
         specialty: "specialty1",
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
-        acceptDiagnosis: false
+        acceptDiagnosis: "no"
       });
       consultationsList.push(consultation);
     }
@@ -139,7 +139,7 @@ describe('ConsultationService', () => {
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
       asigned: false,
-      acceptDiagnosis: false
+      acceptDiagnosis: "no"
     }
 
     const newConsultation: ConsultationEntity = await service.create(consultation);
@@ -191,12 +191,12 @@ describe('ConsultationService', () => {
 
   it('update should modify a consultation', async () => {
     const consultation: ConsultationEntity = consultationsList[0];
-    consultation.acceptDiagnosis = true;
+    consultation.acceptDiagnosis = "yes";
      const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
     expect(updatedConsultation).not.toBeNull();
     const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
     expect(storedConsultation).not.toBeNull();
-    expect(storedConsultation.acceptDiagnosis).toEqual(true)
+    expect(storedConsultation.acceptDiagnosis).toEqual("yes")
   });
 
 });

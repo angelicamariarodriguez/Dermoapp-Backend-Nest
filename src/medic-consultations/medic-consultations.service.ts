@@ -37,4 +37,12 @@ export class MedicConsultationsService {
        
         return medic.consultations;
     }
+
+    async findConsultationsByMedicId2(medicId: string): Promise<ConsultationEntity[]> {
+      const medic: MedicEntity = await this.medicRepository.findOne({where: {id: medicId}, relations: ["consultations"]});
+      if (!medic)
+        throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND)
+     
+      return medic.consultations;
+  }
 }

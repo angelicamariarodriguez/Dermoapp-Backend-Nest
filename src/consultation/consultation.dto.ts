@@ -38,8 +38,8 @@ export class ConsultationDto {
  readonly asigned: boolean;
 
  @IsNotEmpty()
- @IsBoolean()
- readonly acceptDiagnosis: boolean;
+ @IsString()
+ readonly acceptDiagnosis: string;
 
  //@IsNotEmpty()
  //readonly creationDate: string;
