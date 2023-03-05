@@ -1,5 +1,5 @@
 
-import {IsDateString, IsEmail, IsNotEmpty, IsString, IsUrl, IsNumber, IsBoolean} from 'class-validator';
+import {IsNotEmpty, IsString, IsUrl, IsNumber, IsBoolean} from 'class-validator';
 export class ConsultationDto {
 
  @IsString()
@@ -38,6 +38,9 @@ export class ConsultationDto {
  readonly asigned: boolean;
 
  @IsNotEmpty()
- @IsBoolean()
- readonly acceptDiagnosis: boolean;
+ @IsString()
+ readonly acceptDiagnosis: string;
+
+ //@IsNotEmpty()
+ //readonly creationDate: string;
 }

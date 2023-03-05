@@ -38,7 +38,7 @@ export class ConsultationEntity {
  asigned: boolean;
 
  @Column()
- acceptDiagnosis: boolean;
+ acceptDiagnosis: string;
 
  @ManyToOne(() => MedicEntity, medic => medic.consultations)
  medic: MedicEntity;
