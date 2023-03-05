@@ -31,18 +31,18 @@ export class MedicConsultationsService {
         return await this.medicRepository.save(medic);
       }
 
-    async findConsultationsByMedicId(medicId: string): Promise<PatientEntity[]> {
+    async findConsultationsByMedicId(medicId: string): Promise<ConsultationEntity[]> {
       const medic: MedicEntity = await this.medicRepository.findOne({where: {id: medicId}, relations: ["consultations"]});
       if (!medic)
         throw new BusinessLogicException("The medic with the given id was not found", BusinessError.NOT_FOUND)
       
-      const patients: PatientEntity[] = [];
       const consultations: ConsultationEntity[] = medic.consultations;
+      const consultations2: ConsultationEntity[] = [];
 
       for(let i=0;i<consultations.length;i++){
         const consultation = this.consultationRepository.findOne({where: {id: consultations[i].id}, relations: ["patient"]})
-        patients[i] = (await consultation).patient
+        consultations2[i] = (await consultation)
       }
-      return patients;
+      return consultations2;
   }
 }
