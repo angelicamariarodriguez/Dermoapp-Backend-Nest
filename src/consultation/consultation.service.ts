@@ -28,6 +28,7 @@ export class ConsultationService {
         consultation = {
             ...consultation, creationDate: now.toISOString()
           }
+        consultation.asigned = false
         return await this.consultationRepository.save(consultation);
     }
 
