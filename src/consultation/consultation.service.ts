@@ -36,7 +36,11 @@ export class ConsultationService {
         const persistedConsultation: ConsultationEntity = await this.consultationRepository.findOne({where:{id}});
         if (!persistedConsultation)
           throw new BusinessLogicException("The consultation with the given id was not found", BusinessError.NOT_FOUND);
-        
+        if(persistedConsultation.asigned == true)
+          consultation.asigned = true
+        else 
+          consultation.asigned = false
+
         return await this.consultationRepository.save({...persistedConsultation, ...consultation});
     }
 

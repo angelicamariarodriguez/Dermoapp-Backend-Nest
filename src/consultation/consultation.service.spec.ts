@@ -199,4 +199,16 @@ describe('ConsultationService', () => {
     expect(storedConsultation.acceptDiagnosis).toEqual("yes")
   });
 
+  it('update should not  modify the asigned atribut false', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    consultation.diagnosis = "New diagnosis";
+     const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
+    expect(updatedConsultation).not.toBeNull();
+    const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.diagnosis).toEqual(consultation.diagnosis)
+    expect(storedConsultation.asigned).toBe(false)
+  });
+ 
+
 });
