@@ -139,10 +139,6 @@ describe('MedicConsultationsService', () => {
     await expect(() => service.addConsultationToMedic("0", newConsultation.id)).rejects.toHaveProperty("message", "The medic with the given id was not found");
   });
 
-  /*it('findConsultationsByMedicId should return patients by medic', async ()=>{
-    const consultations: ConsultationEntity[] = await service.findConsultationsByMedicId(medic.id);
-    expect(consultations.length).toBe(5)
-  });*/
 
   it('findConsultationsByMedicId should throw an exception for an invalid medic', async () => {
     await expect(()=> service.findConsultationsByMedicId("0")).rejects.toHaveProperty("message", "The medic with the given id was not found"); 
