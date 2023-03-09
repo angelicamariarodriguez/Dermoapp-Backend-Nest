@@ -48,7 +48,7 @@ describe('ConsultationService', () => {
         specialty: faker.lorem.word(),
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
-        acceptDiagnosis: false
+        acceptDiagnosis: "no"
       });
       consultationsList.push(consultation);
     }
@@ -65,7 +65,7 @@ describe('ConsultationService', () => {
         specialty: "specialty1",
         diagnosis: faker.lorem.paragraph(),
         asigned: false,
-        acceptDiagnosis: false
+        acceptDiagnosis: "no"
       });
       consultationsList.push(consultation);
     }
@@ -138,8 +138,8 @@ describe('ConsultationService', () => {
       typeOfInjury: faker.lorem.word(),
       specialty: faker.lorem.word(),
       diagnosis: faker.lorem.paragraph(),
-      asigned: false,
-      acceptDiagnosis: false
+      asigned: true,
+      acceptDiagnosis: "no"
     }
 
     const newConsultation: ConsultationEntity = await service.create(consultation);
@@ -156,7 +156,7 @@ describe('ConsultationService', () => {
     expect(storedConsultation.typeOfInjury).toEqual(newConsultation.typeOfInjury)
     expect(storedConsultation.specialty).toEqual(newConsultation.specialty)
     expect(storedConsultation.diagnosis).toEqual(newConsultation.diagnosis)
-    expect(storedConsultation.asigned).toEqual(newConsultation.asigned)
+    expect(storedConsultation.asigned).toEqual(false)
     expect(storedConsultation.acceptDiagnosis).toEqual(newConsultation.acceptDiagnosis)
   });
 
@@ -191,12 +191,24 @@ describe('ConsultationService', () => {
 
   it('update should modify a consultation', async () => {
     const consultation: ConsultationEntity = consultationsList[0];
-    consultation.acceptDiagnosis = true;
+    consultation.acceptDiagnosis = "yes";
      const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
     expect(updatedConsultation).not.toBeNull();
     const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
     expect(storedConsultation).not.toBeNull();
-    expect(storedConsultation.acceptDiagnosis).toEqual(true)
+    expect(storedConsultation.acceptDiagnosis).toEqual("yes")
   });
+
+  it('update should not  modify the asigned atribut false', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    consultation.diagnosis = "New diagnosis";
+     const updatedConsultation: ConsultationEntity = await service.update(consultation.id, consultation);
+    expect(updatedConsultation).not.toBeNull();
+    const storedConsultation: ConsultationEntity = await repository.findOne({ where: { id: consultation.id } })
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.diagnosis).toEqual(consultation.diagnosis)
+    expect(storedConsultation.asigned).toBe(false)
+  });
+ 
 
 });
