@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Configuration, OpenAIApi, CreateCompletionRequest } from 'openai';
 import { CreateAutodiagnosisDto } from './create-autodiagnosis.dto';
+import { ConsultationService } from '../consultation/consultation.service';
+import { ConsultationEntity } from '../consultation/consultation.entity';
 
 
 @Injectable()
 export class AutodiagnosisService {
   private readonly openAIApi: OpenAIApi;
 
-  constructor() {
+  constructor(private consultationService: ConsultationService) {
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -17,24 +19,28 @@ export class AutodiagnosisService {
 
   async createCompletion({
     question,
-    model,
-    temperature,
+    consultationId,
   }: CreateAutodiagnosisDto) {
     try {
       const params: CreateCompletionRequest = {
         prompt: question,
-        model: model || 'text-davinci-003',
-        temperature: temperature || 0.9,
+        model: 'text-davinci-003',
+        temperature: 0.9,
         max_tokens: 256,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
       };
       const { data } = await this.openAIApi.createCompletion(params);
+      //console.log(data.choices[0].text);
 
-      return data;
+      const consultation: ConsultationEntity = await this.consultationService.findOne(consultationId)
+      consultation.diagnosis = data.choices[0].text;  
+      consultation.asigned = true;  
+      return await this.consultationService.update(consultationId, consultation);
+
     } catch (e) {
-      throw new Error(e);
+      throw new HttpException("The consultation with the given id was not found or autodiagnosis unavailable", HttpStatus.NOT_FOUND);//Error(e);
     }
   }
 }

@@ -5,8 +5,6 @@ export class CreateAutodiagnosisDto {
     question: string;
 
     @IsString()
-    model?: string;
+    consultationId: string;
 
-    @IsNumber()
-    temperature?: number;
   }

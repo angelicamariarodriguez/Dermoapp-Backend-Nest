@@ -8,6 +8,6 @@ export class AutodiagnosisController {
 
     @Post()
     async createCompletion(@Body() createAutodiagnosisDto: CreateAutodiagnosisDto) {
-      return this.autodiagnosisService.createCompletion(createAutodiagnosisDto);
+      return await this.autodiagnosisService.createCompletion(createAutodiagnosisDto);
     }    
 }
