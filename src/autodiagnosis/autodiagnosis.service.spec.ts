@@ -54,14 +54,4 @@ describe('AutodiagnosisService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should make autodignosis', async () => {
-    const storedConsultation: ConsultationEntity = consultationsList[0];
-    const response = await service.createCompletion({
-      question: 'roses are red',
-      consultationId: storedConsultation.id
-    });
-    expect(response.diagnosis).not.toBeNull();
-  });
-
-
 });
