@@ -3,6 +3,7 @@ import { Configuration, OpenAIApi, CreateCompletionRequest } from 'openai';
 import { CreateAutodiagnosisDto } from './create-autodiagnosis.dto';
 import { ConsultationService } from '../consultation/consultation.service';
 import { ConsultationEntity } from '../consultation/consultation.entity';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 
 
 @Injectable()
@@ -40,7 +41,7 @@ export class AutodiagnosisService {
       return await this.consultationService.update(consultationId, consultation);
 
     } catch (e) {
-      throw new HttpException("The consultation with the given id was not found or autodiagnosis unavailable", HttpStatus.NOT_FOUND);//Error(e);
+      throw new BusinessLogicException("The consultation with the given id was not found or autodiagnosis unavailable", BusinessError.NOT_FOUND);//Error(e);
     }
   }
 }
