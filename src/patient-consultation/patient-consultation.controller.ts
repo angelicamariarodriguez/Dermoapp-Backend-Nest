@@ -12,7 +12,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class PatientConsultationController {
    constructor(private readonly patientConsultationService: PatientConsultationService){}
 
-   @UseGuards(JwtAuthGuard)
+   //@UseGuards(JwtAuthGuard)
    @Post(':patientEmail/consultations/:consultationId')
    async addConsultationPatientByEmail(@Param('patientEmail') patientEmail: string, @Param('consultationId') consultationId: string){
        return await this.patientConsultationService.addConsultationPatientByEmail(patientEmail, consultationId);
@@ -31,20 +31,20 @@ export class PatientConsultationController {
    }
 */
 
-   @UseGuards(JwtAuthGuard)
+   //@UseGuards(JwtAuthGuard)
    @Get(':patientEmail/consultations/:consultationId')
    async findConsultationByPatientemailConsultationId(@Param('patientEmail') patientEmail: string, @Param('consultationId') consultationId: string){
        return await this.patientConsultationService.findConsultationByPatientEmailConsultationId(patientEmail, consultationId);
    }
 
-   @UseGuards(JwtAuthGuard)
+   //@UseGuards(JwtAuthGuard)
    @Get(':patientEmail/consultations')
    async findConsultationsByPatientEmail(@Param('patientEmail') patientEmail: string){
        return await this.patientConsultationService.findConsultationsByPatientEmail(patientEmail);
    }
 
 
-   @UseGuards(JwtAuthGuard)
+   //@UseGuards(JwtAuthGuard)
    @Put(':patientId/consultations')
    async associateConsultationsPatient(@Body() consultationsDto: ConsultationDto[], @Param('patientId') patientId: string){
        const consultations = plainToInstance(ConsultationEntity, consultationsDto)

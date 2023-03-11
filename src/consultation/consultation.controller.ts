@@ -36,7 +36,7 @@ export class ConsultationController {
     return await this.consultationService.create(consultation);
   }
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Put(':consultationId')
   async update(@Param('consultationId') consultationId: string, @Body() consultationDto: ConsultationDto) {
     const consultation: ConsultationEntity = plainToInstance(ConsultationEntity, consultationDto);
