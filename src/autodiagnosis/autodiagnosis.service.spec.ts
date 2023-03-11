@@ -8,6 +8,7 @@ import { ConsultationEntity } from '../consultation/consultation.entity';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { faker } from '@faker-js/faker';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 describe('AutodiagnosisService', () => {
   let service: AutodiagnosisService;
