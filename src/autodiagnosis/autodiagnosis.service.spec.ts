@@ -53,7 +53,7 @@ describe('AutodiagnosisService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-/*
+
   it('should make autodignosis', async () => {
     const storedConsultation: ConsultationEntity = consultationsList[0];
     const response = await service.createCompletion({
@@ -63,6 +63,7 @@ describe('AutodiagnosisService', () => {
     expect(response.diagnosis).not.toBeNull();
   });
 
+  /*
  it('createCompletion should throw an exception for an invalid consultation', async () => {
 
   
