@@ -49,7 +49,7 @@ describe('AutodiagnosisService', () => {
     }
   }
 
-/*
+
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
@@ -63,7 +63,7 @@ describe('AutodiagnosisService', () => {
     expect(response.diagnosis).not.toBeNull();
   });
 
-  */
+  
  it('createCompletion should throw an exception for an invalid consultation', async () => {
 
   
