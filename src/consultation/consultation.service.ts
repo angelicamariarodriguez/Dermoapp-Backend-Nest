@@ -16,7 +16,7 @@ export class ConsultationService {
     }
 
     async findOne(id: string): Promise<ConsultationEntity> {
-        const consultation: ConsultationEntity = await this.consultationRepository.findOne({where: {id}} );
+        const consultation: ConsultationEntity = await this.consultationRepository.findOne({where: {id}, relations: ["patient"] } );
         if (!consultation)
           throw new BusinessLogicException("The consultation with the given id was not found", BusinessError.NOT_FOUND);
     
@@ -28,6 +28,7 @@ export class ConsultationService {
         consultation = {
             ...consultation, creationDate: now.toISOString()
           }
+        consultation.asigned = false
         return await this.consultationRepository.save(consultation);
     }
 
@@ -35,7 +36,11 @@ export class ConsultationService {
         const persistedConsultation: ConsultationEntity = await this.consultationRepository.findOne({where:{id}});
         if (!persistedConsultation)
           throw new BusinessLogicException("The consultation with the given id was not found", BusinessError.NOT_FOUND);
-        
+        if(persistedConsultation.asigned == true)
+          consultation.asigned = true
+        else 
+          consultation.asigned = false
+
         return await this.consultationRepository.save({...persistedConsultation, ...consultation});
     }
 

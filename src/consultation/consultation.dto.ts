@@ -1,5 +1,5 @@
-/* eslint-disable prettier/prettier */
-import {IsDateString, IsEmail, IsNotEmpty, IsString, IsUrl, IsNumber} from 'class-validator';
+
+import {IsNotEmpty, IsString, IsUrl, IsNumber, IsBoolean} from 'class-validator';
 export class ConsultationDto {
 
  @IsString()
@@ -23,12 +23,23 @@ export class ConsultationDto {
  readonly image: string;
 
  @IsNotEmpty()
+ @IsString()
  readonly typeOfInjury: string;
 
  @IsNotEmpty()
+ @IsString()
  readonly specialty: string;
+
+ @IsString()
+ readonly diagnosis: string;
+
+
+ readonly asigned: boolean;
+
+ @IsNotEmpty()
+ @IsString()
+ readonly acceptDiagnosis: string;
 
  //@IsNotEmpty()
  //readonly creationDate: string;
 }
-/* archivo: src/patient/patient.dto.ts */

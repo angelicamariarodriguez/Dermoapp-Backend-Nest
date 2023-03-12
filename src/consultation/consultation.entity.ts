@@ -31,11 +31,21 @@ export class ConsultationEntity {
  @Column()
  specialty: string;
 
+ @Column()
+ diagnosis: string;
+
+ @Column()
+ asigned: boolean;
+
+ @Column()
+ acceptDiagnosis: string;
 
  @ManyToOne(() => MedicEntity, medic => medic.consultations)
  medic: MedicEntity;
 
  @ManyToOne(() => PatientEntity, patient => patient.consultations)
  patient: PatientEntity;
+
+ 
     
 }

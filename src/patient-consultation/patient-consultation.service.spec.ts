@@ -42,7 +42,10 @@ describe('PatientConsultationService', () => {
           image: faker.image.imageUrl(),
           creationDate:faker.date.birthdate().toISOString(),
           typeOfInjury: faker.lorem.word(),
-          specialty: faker.lorem.word()
+          specialty: faker.lorem.word(),
+          diagnosis: faker.lorem.paragraph(),
+          asigned: false,
+          acceptDiagnosis: "no"
         })
         consultationsList.push(consultation);
     }
@@ -72,7 +75,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     const newPatient: PatientEntity = await patientRepository.save({
@@ -94,6 +100,9 @@ describe('PatientConsultationService', () => {
     expect(result.consultations[0].distribution).toBe(newConsultation.distribution)
     expect(result.consultations[0].comment).toBe(newConsultation.comment)
     expect(result.consultations[0].image).toBe(newConsultation.image)
+    expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
+    expect(result.consultations[0].asigned).toBe(newConsultation.asigned)
+    expect(result.consultations[0].acceptDiagnosis).toBe(newConsultation.acceptDiagnosis)
   });
 
   it('addConsultationPatient should thrown exception for an invalid consultation', async () => {
@@ -119,7 +128,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     await expect(() => service.addConsultationPatient("0", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given id was not found");
@@ -134,6 +146,9 @@ describe('PatientConsultationService', () => {
     expect(storedConsultation.distribution).toBe(consultation.distribution);
     expect(storedConsultation.comment).toBe(consultation.comment);
     expect(storedConsultation.image).toBe(consultation.image);
+    expect(storedConsultation.diagnosis).toBe(consultation.diagnosis);
+    expect(storedConsultation.asigned).toBe(consultation.asigned);
+    expect(storedConsultation.acceptDiagnosis).toBe(consultation.acceptDiagnosis);
   });
 
   it('findConsultationByPatientIdConsultationId should throw an exception for an invalid consultation', async () => {
@@ -154,7 +169,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     await expect(()=> service.findConsultationByPatientIdConsultationId(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
@@ -169,6 +187,60 @@ describe('PatientConsultationService', () => {
     await expect(()=> service.findConsultationsByPatientId("0")).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
   });
 
+  // Consultations by patient email
+
+  it('findConsultationByPatientEmailConsultationId should return consultation by patient', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    const storedConsultation: ConsultationEntity = await service.findConsultationByPatientEmailConsultationId(patient.email, consultation.id, )
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.shape).toBe(consultation.shape);
+    expect(storedConsultation.numberOfInjuries).toBe(consultation.numberOfInjuries);
+    expect(storedConsultation.distribution).toBe(consultation.distribution);
+    expect(storedConsultation.comment).toBe(consultation.comment);
+    expect(storedConsultation.image).toBe(consultation.image);
+    expect(storedConsultation.diagnosis).toBe(consultation.diagnosis);
+    expect(storedConsultation.asigned).toBe(consultation.asigned);
+    expect(storedConsultation.acceptDiagnosis).toBe(consultation.acceptDiagnosis);
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an invalid consultation', async () => {
+    await expect(()=> service.findConsultationByPatientEmailConsultationId(patient.email, "0")).rejects.toHaveProperty("message", "The consultation with the given id was not found"); 
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an invalid patient', async () => {
+    const consultation: ConsultationEntity = consultationsList[0]; 
+    await expect(()=> service.findConsultationByPatientEmailConsultationId("0", consultation.id)).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an consultation not associated to the patient', async () => {
+    const newConsultation: ConsultationEntity = await consultationRepository.save({
+      shape: faker.lorem.word(),
+      numberOfInjuries: faker.lorem.word(),
+      distribution: faker.lorem.word(),
+      comment: faker.lorem.paragraph(),
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate().toISOString(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
+    });
+
+    await expect(()=> service.findConsultationByPatientEmailConsultationId(patient.email, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
+  });
+
+  it('findConsultationsByPatientEmail should return consultations by patient', async ()=>{
+    const consultations: ConsultationEntity[] = await service.findConsultationsByPatientEmail(patient.email);
+    expect(consultations.length).toBe(5)
+  });
+
+  it('findConsultationsByPatientEmail should throw an exception for an invalid patient', async () => {
+    await expect(()=> service.findConsultationsByPatientEmail("0")).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
+  });
+
+  ///////////////////
+
   it('associateConsultationsPatient should update consultations list for a patient', async () => {
     const newConsultation: ConsultationEntity = await consultationRepository.save({
       shape: faker.lorem.word(),
@@ -178,7 +250,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     const updatedPatient: PatientEntity = await service.associateConsultationsPatient(patient.id, [newConsultation]);
@@ -189,6 +264,9 @@ describe('PatientConsultationService', () => {
     expect(updatedPatient.consultations[0].distribution).toBe(newConsultation.distribution);
     expect(updatedPatient.consultations[0].comment).toBe(newConsultation.comment);
     expect(updatedPatient.consultations[0].image).toBe(newConsultation.image);
+    expect(updatedPatient.consultations[0].diagnosis).toBe(newConsultation.diagnosis);
+    expect(updatedPatient.consultations[0].asigned).toBe(newConsultation.asigned);
+    expect(updatedPatient.consultations[0].acceptDiagnosis).toBe(newConsultation.acceptDiagnosis);
   });
 
   it('associateConsultationsPatient should throw an exception for an invalid patient', async () => {
@@ -200,7 +278,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     await expect(()=> service.associateConsultationsPatient("0", [newConsultation])).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
@@ -244,7 +325,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     await expect(()=> service.deleteConsultationPatient(patient.id, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
@@ -259,7 +343,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     const newPatient: PatientEntity = await patientRepository.save({
@@ -281,6 +368,9 @@ describe('PatientConsultationService', () => {
     expect(result.consultations[0].distribution).toBe(newConsultation.distribution)
     expect(result.consultations[0].comment).toBe(newConsultation.comment)
     expect(result.consultations[0].image).toBe(newConsultation.image)
+    expect(result.consultations[0].diagnosis).toBe(newConsultation.diagnosis)
+    expect(result.consultations[0].asigned).toBe(newConsultation.asigned)
+    expect(result.consultations[0].acceptDiagnosis).toBe(newConsultation.acceptDiagnosis)
   });
 
   it('addConsultationPatientByEmail should thrown exception for an invalid consultation', async () => {
@@ -306,7 +396,10 @@ describe('PatientConsultationService', () => {
       image: faker.image.imageUrl(),
       creationDate:faker.date.birthdate().toISOString(),
       typeOfInjury: faker.lorem.word(),
-      specialty: faker.lorem.word()
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
     });
 
     await expect(() => service.addConsultationPatientByEmail("aaa@aaa.com", newConsultation.id)).rejects.toHaveProperty("message", "The patient with the given email was not found");

@@ -12,6 +12,8 @@ import { UserEntity } from './user/user.entity';
 import { ConsultationModule } from './consultation/consultation.module';
 import { ConsultationEntity } from './consultation/consultation.entity';
 import { PatientConsultationModule } from './patient-consultation/patient-consultation.module';
+import { MedicConsultationsModule } from './medic-consultations/medic-consultations.module';
+import { AutodiagnosisModule } from './autodiagnosis/autodiagnosis.module';
 
 @Module({
   imports: [MedicModule, PatientModule, UserModule, 
@@ -23,10 +25,10 @@ import { PatientConsultationModule } from './patient-consultation/patient-consul
       password: 'dermoapp23#', // Production DB password is 'dermoapp23#'
       database: 'dermoapp',
       entities: [MedicEntity, PatientEntity, UserEntity, ConsultationEntity],
-      dropSchema: true, // Need to comment for production
+      //dropSchema: true, // Need to comment for production
       synchronize: true,
       keepConnectionAlive: true
-    }), UserModule, AuthModule, ConsultationModule, PatientConsultationModule
+    }), UserModule, AuthModule, ConsultationModule, PatientConsultationModule, MedicConsultationsModule, AutodiagnosisModule
   ],
   controllers: [AppController],
   providers: [AppService],
