@@ -40,8 +40,14 @@ export class AutodiagnosisService {
       consultation.asigned = true;  
       return await this.consultationService.update(consultationId, consultation);
 
-    } catch (e) {
-      throw new BusinessLogicException("The consultation with the given id was not found or autodiagnosis unavailable", BusinessError.NOT_FOUND);//Error(e);
+    } catch (error) {
+      //throw new BusinessLogicException("The consultation with the given id was not found or autodiagnosis unavailable", BusinessError.NOT_FOUND);//Error(e);
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        message: 'The consultation with the given id was not found or autodiagnosis unavailable',
+      }, HttpStatus.NOT_FOUND, {
+        cause: error
+      });
     }
   }
 }
