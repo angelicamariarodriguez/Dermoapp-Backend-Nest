@@ -12,7 +12,7 @@ export class AutodiagnosisService {
 
   constructor(private consultationService: ConsultationService) {
     const configuration = new Configuration({
-      apiKey: "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" //process.env.OPENAI_API_KEY,
+      apiKey: process.env.OPENAI_API_KEY,
     });
 
     this.openAIApi = new OpenAIApi(configuration);
