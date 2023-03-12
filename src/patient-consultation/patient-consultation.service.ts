@@ -102,4 +102,30 @@ export class PatientConsultationService {
        await this.patientRepository.save(patient);
    }  
 
+   async findConsultationByPatientEmailConsultationId(patientEmail: string, consultationId: string): Promise<ConsultationEntity> {
+    const consultation: ConsultationEntity = await this.consultationRepository.findOne({where: {id: consultationId}});
+    if (!consultation)
+      throw new BusinessLogicException("The consultation with the given id was not found", BusinessError.NOT_FOUND)
+   
+    const patient: PatientEntity = await this.patientRepository.findOne({where: {email: patientEmail}, relations: ["consultations"]});
+    if (!patient)
+      throw new BusinessLogicException("The patient with the given id was not found", BusinessError.NOT_FOUND)
+
+    const patientConsultation: ConsultationEntity = patient.consultations.find(e => e.id === consultation.id);
+
+    if (!patientConsultation)
+      throw new BusinessLogicException("The consultation with the given id is not associated to the patient", BusinessError.PRECONDITION_FAILED)
+
+    return patientConsultation;
+  }   
+  async findConsultationsByPatientEmail(patientEmail: string): Promise<ConsultationEntity[]> {
+    const patient: PatientEntity = await this.patientRepository.findOne({where: {email: patientEmail}, relations: ["consultations"]});
+    if (!patient)
+      throw new BusinessLogicException("The patient with the given id was not found", BusinessError.NOT_FOUND)
+   
+    return patient.consultations;
+  }
+
+
+
 }

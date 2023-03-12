@@ -187,6 +187,60 @@ describe('PatientConsultationService', () => {
     await expect(()=> service.findConsultationsByPatientId("0")).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
   });
 
+  // Consultations by patient email
+
+  it('findConsultationByPatientEmailConsultationId should return consultation by patient', async () => {
+    const consultation: ConsultationEntity = consultationsList[0];
+    const storedConsultation: ConsultationEntity = await service.findConsultationByPatientEmailConsultationId(patient.email, consultation.id, )
+    expect(storedConsultation).not.toBeNull();
+    expect(storedConsultation.shape).toBe(consultation.shape);
+    expect(storedConsultation.numberOfInjuries).toBe(consultation.numberOfInjuries);
+    expect(storedConsultation.distribution).toBe(consultation.distribution);
+    expect(storedConsultation.comment).toBe(consultation.comment);
+    expect(storedConsultation.image).toBe(consultation.image);
+    expect(storedConsultation.diagnosis).toBe(consultation.diagnosis);
+    expect(storedConsultation.asigned).toBe(consultation.asigned);
+    expect(storedConsultation.acceptDiagnosis).toBe(consultation.acceptDiagnosis);
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an invalid consultation', async () => {
+    await expect(()=> service.findConsultationByPatientEmailConsultationId(patient.email, "0")).rejects.toHaveProperty("message", "The consultation with the given id was not found"); 
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an invalid patient', async () => {
+    const consultation: ConsultationEntity = consultationsList[0]; 
+    await expect(()=> service.findConsultationByPatientEmailConsultationId("0", consultation.id)).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
+  });
+
+  it('findConsultationByPatientEmailConsultationId should throw an exception for an consultation not associated to the patient', async () => {
+    const newConsultation: ConsultationEntity = await consultationRepository.save({
+      shape: faker.lorem.word(),
+      numberOfInjuries: faker.lorem.word(),
+      distribution: faker.lorem.word(),
+      comment: faker.lorem.paragraph(),
+      image: faker.image.imageUrl(),
+      creationDate:faker.date.birthdate().toISOString(),
+      typeOfInjury: faker.lorem.word(),
+      specialty: faker.lorem.word(),
+      diagnosis: faker.lorem.paragraph(),
+      asigned: false,
+      acceptDiagnosis: "no"
+    });
+
+    await expect(()=> service.findConsultationByPatientEmailConsultationId(patient.email, newConsultation.id)).rejects.toHaveProperty("message", "The consultation with the given id is not associated to the patient"); 
+  });
+
+  it('findConsultationsByPatientEmail should return consultations by patient', async ()=>{
+    const consultations: ConsultationEntity[] = await service.findConsultationsByPatientEmail(patient.email);
+    expect(consultations.length).toBe(5)
+  });
+
+  it('findConsultationsByPatientEmail should throw an exception for an invalid patient', async () => {
+    await expect(()=> service.findConsultationsByPatientEmail("0")).rejects.toHaveProperty("message", "The patient with the given id was not found"); 
+  });
+
+  ///////////////////
+
   it('associateConsultationsPatient should update consultations list for a patient', async () => {
     const newConsultation: ConsultationEntity = await consultationRepository.save({
       shape: faker.lorem.word(),
