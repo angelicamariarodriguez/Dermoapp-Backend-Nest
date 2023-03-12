@@ -41,7 +41,13 @@ export class AutodiagnosisService {
       return await this.consultationService.update(consultationId, consultation);
 
     } catch (error) {
-      throw new BusinessLogicException("The consultation with the given id was not found or autodiagnosis unavailable", BusinessError.NOT_FOUND);//Error(e);
+      //throw new BusinessLogicException("The consultation with the given id was not found or autodiagnosis unavailable", BusinessError.NOT_FOUND);//Error(e);
+      throw new HttpException({
+        status: HttpStatus.NOT_FOUND,
+        error: 'The consultation with the given id was not found or autodiagnosis unavailable',
+      }, HttpStatus.NOT_FOUND, {
+        cause: error
+      });
 
     }
   }
